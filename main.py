@@ -47,11 +47,11 @@ def get_text_messages(message):
                 person.save()
 
             if hasActiveOrder(person.id):
-                bot.send_message(message.from_user.id, "У вас уже есть активный заказ, дождитесь его завершения")
+                bot.send_message(message.from_user.id, "У вас уже есть активный заказ, дождитесь его завершения", reply_markup=types.ReplyKeyboardRemove())
             else:
                 bot.send_message(message.from_user.id, f"У вас {person.coins} CTFCoin, нажмите на кнопку, чтобы выбрать мерч", reply_markup=webAppKeyboard())
         else:
-            bot.send_message(message.from_user.id, "Вы не можете приобрести наш мерч")
+            bot.send_message(message.from_user.id, "Вы не можете приобрести наш мерч", reply_markup=types.ReplyKeyboardRemove())
     elif message.text == "Да, оплатить!":
         from models.user import User
         from data_methods import updateStatusOrder
@@ -60,9 +60,9 @@ def get_text_messages(message):
         if person is not None:
             updateStatusOrder(person.id, 2)
 
-            bot.send_message(message.from_user.id, f"Заказ успешно отправлен в обработку. Мы свяжемся с вами для уточнения деталей")
+            bot.send_message(message.from_user.id, f"Заказ успешно отправлен в обработку. Мы свяжемся с вами для уточнения деталей", reply_markup=types.ReplyKeyboardRemove())
         else:
-            bot.send_message(message.from_user.id, "Вы не можете приобрести наш мерч")
+            bot.send_message(message.from_user.id, "Вы не можете приобрести наш мерч", reply_markup=types.ReplyKeyboardRemove())
     elif message.text == "Нет":
         from models.user import User
         from data_methods import updateStatusOrder
@@ -71,11 +71,11 @@ def get_text_messages(message):
         if person is not None:
             updateStatusOrder(person.id, 4)
 
-            bot.send_message(message.from_user.id, f"Очень жаль, наемся, что в будущем вы приобретете наш мерч")
+            bot.send_message(message.from_user.id, f"Очень жаль, наемся, что в будущем вы приобретете наш мерч", reply_markup=types.ReplyKeyboardRemove())
         else:
-            bot.send_message(message.from_user.id, "Вы не можете приобрести наш мерч")
+            bot.send_message(message.from_user.id, "Вы не можете приобрести наш мерч", reply_markup=types.ReplyKeyboardRemove())
     else:
-        bot.send_message(message.from_user.id, f"Я вас не понимаю. Начните диалог заново отправив: /start")
+        bot.send_message(message.from_user.id, f"Я вас не понимаю. Начните диалог заново отправив: /start", reply_markup=types.ReplyKeyboardRemove())
 
 @bot.message_handler(content_types="web_app_data")
 def answer(webAppMes):
